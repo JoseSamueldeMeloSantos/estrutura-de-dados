@@ -6,7 +6,7 @@ public class ArrayStack<E> implements Stack<E> {
 
 
     private int top = -1;
-    private final int INIT_SIZE = 1;
+    private final int INIT_SIZE = 1_000;
     private E[] array;
 
     public ArrayStack() {
@@ -32,7 +32,7 @@ public class ArrayStack<E> implements Stack<E> {
     @Override
     public E pop() {
         if (this.size() == 0) throw new EmptyStackException();
-        if (this.size() <= array.length / 2) rezise(array.length / 2);
+        if (this.size() == array.length / 4) rezise(array.length / 2);
         E e = array[top--];
         return e;
     }

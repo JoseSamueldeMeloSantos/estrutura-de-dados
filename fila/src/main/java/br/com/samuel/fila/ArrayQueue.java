@@ -4,7 +4,7 @@ public class ArrayQueue<E> implements Queue<E> {
 
     private int f = 0;
     private int r = 0;
-    private int INIT_SIZE = 1;
+    private int INIT_SIZE = 1_000;
     private E[] array;
 
     public ArrayQueue() {
@@ -39,7 +39,7 @@ public class ArrayQueue<E> implements Queue<E> {
     @Override
     public E dequeue() throws EmptyQueueException {
         if (isEmpty()) throw new EmptyQueueException();
-        if (size() <= array.length / 4) resize(array.length / 2);
+        if (size() == array.length / 4) resize(array.length / 2);
         E temp = array[f];
         array[f] = null;
         f = (f + 1) % array.length;
@@ -48,6 +48,7 @@ public class ArrayQueue<E> implements Queue<E> {
 
     @Override
     public void resize(int newSize) {
+        assert newSize >= this.size();
         E[] newArray = (E[]) new Object[newSize];
         for (int i = 0; i < array.length; i++){
             newArray[i] = array[(f + i) % array.length];
@@ -86,6 +87,7 @@ public class ArrayQueue<E> implements Queue<E> {
         fila.dequeue();
         System.out.println(fila.front());
         System.out.println(fila.last());
+        //System.out.println(fila);
     }
 
 }
